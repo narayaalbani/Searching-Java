@@ -1,17 +1,28 @@
 import java.util.Scanner;
 
-public class SequentialSearch {
-    private static int sequentialSearch(int[] arr, int x) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == x)
-                return ++i;
+public class BinarySearch {
+    private static int binarySearch(int[] arr, int x) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == x) {
+                return mid + 1;
+            }
+
+            if (arr[mid] < x) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
         }
         return -1;
     }
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Masukkan angka (pisahkan dengan koma): ");
+            System.out.print("Masukkan angka yang telah diurutkan (pisahkan dengan koma): ");
             String input = scanner.nextLine();
             System.out.print("Masukkan angka yang ingin dicari: ");
             int x = scanner.nextInt();
@@ -23,8 +34,7 @@ public class SequentialSearch {
             }
 
             System.out.println(
-                    sequentialSearch(intArray, x) != -1
-                            ? "Elemen ditemukan pada urutan ke-" + sequentialSearch(intArray, x)
+                    binarySearch(intArray, x) != -1 ? "Elemen ditemukan pada urutan ke-" + binarySearch(intArray, x)
                             : "Elemen tidak ditemukan.");
         } catch (NumberFormatException e) {
             System.err.println("Format yang dimasukkan tidak sesuai!");
